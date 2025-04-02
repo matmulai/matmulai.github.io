@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   schedule:
     - cron: '0 0 1 * *'  # Run at midnight on the 1st day of every month
+  workflow_dispatch: 
 
 jobs:
   generate-data:
@@ -18,7 +19,6 @@ jobs:
       uses: matmulai/generator@v1
       with:
         # Configure any options needed for the action
-        # For example:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         output_file: _data/generated_data.csv
         
