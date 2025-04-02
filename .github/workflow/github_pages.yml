@@ -4,25 +4,38 @@ on:
   push:
     branches:
       - main
-  workflow_run:
-    workflows: ["Generate Repository Summary Data"]
-    types:
-      - completed
+  workflow_dispatch:  # Optional: lets you trigger manually
 
 jobs:
   github-pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      
-      - uses: actions/cache@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate Repository Summary
+        uses: matmulai/generator@v1.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          output_file: _data/generated_data.csv
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          git add _data/generated_data.csv
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update repository summary data" && git push)
+
+      - name: Cache Ruby gems
+        uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
-      
-      - uses: helaili/jekyll-action@v2
+
+      - name: Build and deploy site
+        uses: helaili/jekyll-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           jekyll_build_options: ""
