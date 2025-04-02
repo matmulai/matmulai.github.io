@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v3
       
     - name: Generate Repository Summary
-      uses: matmulai/generator@v1
+      uses: matmulai/generator@v1.1
       with:
         # Configure any options needed for the action
         github_token: ${{ secrets.GITHUB_TOKEN }}
