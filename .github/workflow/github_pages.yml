@@ -13,11 +13,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Ensure _data folder exists
+        run: mkdir -p _data
+
       - name: Generate Repository Summary
         uses: matmulai/generator@v1.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           output_file: _data/generated_data.csv
+
+      - name: Debug generated output
+        run: |
+          echo "Listing _data directory:"
+          ls -al _data || echo "_data directory not found"
+          echo "File contents (if any):"
+          cat _data/generated_data.csv || echo "generated_data.csv not found or empty"
 
       - name: Commit and push if changed
         run: |
