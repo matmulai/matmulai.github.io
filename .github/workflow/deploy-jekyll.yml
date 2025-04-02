@@ -1,0 +1,29 @@
+name: Build and deploy Jekyll site to GitHub Pages
+
+on:
+  workflow_run:
+    workflows: ["Generate Repository Summary Data"]
+    types:
+      - completed
+  workflow_dispatch:  # Optional: allows manual triggering
+
+jobs:
+  github-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache Ruby gems
+        uses: actions/cache@v3
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Build and deploy site
+        uses: helaili/jekyll-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          jekyll_build_options: ""
