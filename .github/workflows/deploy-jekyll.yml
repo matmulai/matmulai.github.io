@@ -1,29 +1,39 @@
-name: Build and deploy Jekyll site to GitHub Pages
-
+name: Generate Data and Build Jekyll Site
 on:
-  workflow_run:
-    workflows: ["Generate Repository Summary Data"]
-    types:
-      - completed
-  workflow_dispatch:  # Optional: allows manual triggering
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 1 * *'  # Monthly update
+  workflow_dispatch:
 
 jobs:
-  github-pages:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Cache Ruby gems
-        uses: actions/cache@v3
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
+          fetch-depth: 0
 
-      - name: Build and deploy site
+      # Step 1: Generate the repository data
+      - name: Create data directory
+        run: mkdir -p _data
+      
+      - name: Generate Repository Summaries
+        uses: gojiplus/generator@v3
+        with:
+          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
+          org_name: matmulai
+          openai_api_key: ${{ secrets.MY_OPENAI_API_KEY }}
+      
+      - name: Copy output file
+        run: cp -v repo_summaries.json _data/generated_data.json
+
+      # Step 2: Build and deploy the Jekyll site
+      - name: Build and deploy
         uses: helaili/jekyll-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          jekyll_build_options: ""
+          target_branch: gh-pages
