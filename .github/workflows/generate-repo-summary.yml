@@ -3,21 +3,25 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 0 1 * *'  # Fixed the cron syntax (removed extra asterisk)
+    - cron: '0 0 1 * *'
   workflow_dispatch:
 jobs:
   generate-data:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Needed for pushing changes
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
       
-      - name: Ensure _data folder exists
-        run: mkdir -p _data
+      - name: Create data directory
+        run: |
+          # Create _data directory and show results
+          mkdir -p _data
+          echo "Created _data directory:"
+          ls -la | grep _data
       
       - name: Generate Repository Summaries
         uses: gojiplus/generator@v3
@@ -26,17 +30,38 @@ jobs:
           org_name: matmulai
           openai_api_key: ${{ secrets.MY_OPENAI_API_KEY }}
       
-      - name: Move output file to data directory
+      - name: Copy output file
         run: |
-          # List files to debug
-          ls -la
+          # Verify _data directory exists
+          if [ ! -d "_data" ]; then
+            echo "Creating _data directory again"
+            mkdir -p _data
+          fi
           
-          # Move the file to the _data directory
-          mv repo_summaries.json _data/generated_data.json || echo "No output file found"
+          # Copy the file with verbose output
+          cp -v repo_summaries.json _data/generated_data.json
+          
+          # Verify the file was copied
+          ls -la _data/
       
-      - name: Commit and push if changed
+      - name: Commit and push changes
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
+          
+          # Verify file exists before adding
+          if [ ! -f "_data/generated_data.json" ]; then
+            echo "ERROR: Output file not found!"
+            exit 1
+          fi
+          
+          # Add and commit the file
           git add _data/generated_data.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update repository summary data" && git push)
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-update repository summary data"
+            git push
+          fi
