@@ -8,16 +8,29 @@ on:
 jobs:
   generate-data:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Needed for pushing changes
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: Ensure _data folder exists
         run: mkdir -p _data
+      
       - name: Generate Repository Summaries
         uses: gojiplus/generator@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          output_file: _data/generated_data.json
+          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
+          org_name: matmulai
+          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+      
+      - name: Move output file to data directory
+        run: |
+          # Assuming your action generates repo_summaries.json in the working directory
+          mv repo_summaries.json _data/generated_data.json || echo "No output file found"
+      
       - name: Commit and push if changed
         run: |
           git config --global user.name "GitHub Actions Bot"
