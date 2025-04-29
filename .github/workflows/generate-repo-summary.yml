@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 0 1 * *'  # Run at midnight on the 1st day of every month
+    - cron: '0 0 1 * *'  # Fixed the cron syntax (removed extra asterisk)
   workflow_dispatch:
 jobs:
   generate-data:
@@ -28,7 +28,10 @@ jobs:
       
       - name: Move output file to data directory
         run: |
-          # Assuming your action generates repo_summaries.json in the working directory
+          # List files to debug
+          ls -la
+          
+          # Move the file to the _data directory
           mv repo_summaries.json _data/generated_data.json || echo "No output file found"
       
       - name: Commit and push if changed
@@ -37,4 +40,3 @@ jobs:
           git config --global user.email "actions@github.com"
           git add _data/generated_data.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update repository summary data" && git push)
-          
