@@ -18,7 +18,7 @@ jobs:
         run: mkdir -p _data
 
       - name: Generate Repository Summary
-        uses: matmulai/generator@v1.1
+        uses: matmulai/generator@v1.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           output_file: _data/generated_data.csv
