@@ -103,7 +103,7 @@
     "FullName": "matmulai/matmulai.github.io",
     "URL": "https://github.com/matmulai/matmulai.github.io",
     "Description": "Jekyll based website using generator",
-    "Language": "HTML",
+    "Language": "SCSS",
     "Stars": 1,
     "Forks": 0,
     "OpenIssues": 0,
