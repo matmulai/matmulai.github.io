@@ -20,7 +20,7 @@ jobs:
         run: mkdir -p _data
       
       - name: Generate Repository Summaries
-        uses: gojiplus/generator@v2
+        uses: gojiplus/generator@v2.1
         with:
           github_token: ${{ secrets.MY_GITHUB_TOKEN }}
           org_name: matmulai
