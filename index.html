@@ -2,39 +2,41 @@
 layout: default
 title: Home
 ---
-
 <section class="hero">
-  <h1>GitHub Repository Dashboard</h1>
-  <p>A curated collection of popular GitHub repositories with key metrics and insights, automatically updated monthly.</p>
+  <h1>MatMul AI GitHub Projects</h1>
+  <p>A curated collection of AI repositories with key metrics and insights, automatically updated monthly.</p>
 </section>
 
 <section class="data-section">
-  <h2>Latest Data</h2>
+  <h2>Latest Repositories</h2>
   
   <div class="data-cards">
     {% for item in site.data.generated_data %}
       <div class="data-card">
-        <h3>{{ item.repository_name }}</h3>
-        <p>{{ item.description }}</p>
+        <h3>{{ item.Name }}</h3>
+        <p class="repo-description">{{ item.Description }}</p>
+        {% if item.Summary != "" %}
+          <p class="repo-summary">{{ item.Summary }}</p>
+        {% endif %}
         <div class="data-metrics">
           <div class="data-metric">
+            <span class="metric-label">Language:</span>
+            <span class="data-value">{{ item.Language }}</span>
+          </div>
+          <div class="data-metric">
             <span class="metric-label">Stars:</span>
-            <span class="data-value">{{ item.stars }}</span>
+            <span class="data-value">{{ item.Stars }}</span>
           </div>
           <div class="data-metric">
             <span class="metric-label">Forks:</span>
-            <span class="data-value">{{ item.forks }}</span>
+            <span class="data-value">{{ item.Forks }}</span>
           </div>
           <div class="data-metric">
             <span class="metric-label">Issues:</span>
-            <span class="data-value">{{ item.open_issues }}</span>
-          </div>
-          <div class="data-metric">
-            <span class="metric-label">Last Updated:</span>
-            <span class="data-value">{{ item.last_updated | date: "%b %d, %Y" }}</span>
+            <span class="data-value">{{ item.OpenIssues }}</span>
           </div>
         </div>
-        <a href="{{ item.repository_url }}" class="repo-link" target="_blank">View Repository</a>
+        <a href="{{ item.URL }}" class="repo-link" target="_blank">View Repository</a>
       </div>
     {% endfor %}
   </div>
