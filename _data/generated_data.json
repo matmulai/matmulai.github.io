@@ -1,0 +1,112 @@
+[
+  {
+    "Name": "layoutlens",
+    "FullName": "matmulai/layoutlens",
+    "URL": "https://github.com/matmulai/layoutlens",
+    "Description": "AI Assisted UI testing",
+    "Language": "Python",
+    "Stars": 1,
+    "Forks": 0,
+    "OpenIssues": 0,
+    "Summary": ""
+  },
+  {
+    "Name": "econometric_bench",
+    "FullName": "matmulai/econometric_bench",
+    "URL": "https://github.com/matmulai/econometric_bench",
+    "Description": "AI Benchmark for Econometrics",
+    "Language": "Jupyter Notebook",
+    "Stars": 2,
+    "Forks": 0,
+    "OpenIssues": 0,
+    "Summary": ""
+  },
+  {
+    "Name": "diverse_stories",
+    "FullName": "matmulai/diverse_stories",
+    "URL": "https://github.com/matmulai/diverse_stories",
+    "Description": "Use GenAI to adapt stories (out of copyright novels, stories, etc.) so that they have diverse characters and cultural context",
+    "Language": "Python",
+    "Stars": 1,
+    "Forks": 0,
+    "OpenIssues": 0,
+    "Summary": ""
+  },
+  {
+    "Name": "logchange",
+    "FullName": "matmulai/logchange",
+    "URL": "https://github.com/matmulai/logchange",
+    "Description": "GenAI Assisted Changelog Generation",
+    "Language": "Python",
+    "Stars": 1,
+    "Forks": 0,
+    "OpenIssues": 0,
+    "Summary": ""
+  },
+  {
+    "Name": "loogy",
+    "FullName": "matmulai/loogy",
+    "URL": "https://github.com/matmulai/loogy",
+    "Description": "Auto-refine code using GenAI by adding logs and stack trace to the calls",
+    "Language": "Python",
+    "Stars": 1,
+    "Forks": 0,
+    "OpenIssues": 0,
+    "Summary": ""
+  },
+  {
+    "Name": "auto-pr",
+    "FullName": "matmulai/auto-pr",
+    "URL": "https://github.com/matmulai/auto-pr",
+    "Description": "Auto-PR Github Action",
+    "Language": "Python",
+    "Stars": 1,
+    "Forks": 0,
+    "OpenIssues": 0,
+    "Summary": ""
+  },
+  {
+    "Name": ".github",
+    "FullName": "matmulai/.github",
+    "URL": "https://github.com/matmulai/.github",
+    "Description": "Advancing AI, one matrix multiplication at a time",
+    "Language": "",
+    "Stars": 0,
+    "Forks": 0,
+    "OpenIssues": 0,
+    "Summary": ""
+  },
+  {
+    "Name": "Buggy-DS-1000",
+    "FullName": "matmulai/Buggy-DS-1000",
+    "URL": "https://github.com/matmulai/Buggy-DS-1000",
+    "Description": "Buggy DS-1000: DS-1000 with bugs.",
+    "Language": "Python",
+    "Stars": 1,
+    "Forks": 0,
+    "OpenIssues": 0,
+    "Summary": ""
+  },
+  {
+    "Name": "manadi",
+    "FullName": "matmulai/manadi",
+    "URL": "https://github.com/matmulai/manadi",
+    "Description": "manadi: take your genai data with you",
+    "Language": "Python",
+    "Stars": 0,
+    "Forks": 0,
+    "OpenIssues": 0,
+    "Summary": ""
+  },
+  {
+    "Name": "matmulai.github.io",
+    "FullName": "matmulai/matmulai.github.io",
+    "URL": "https://github.com/matmulai/matmulai.github.io",
+    "Description": "Jekyll based website using generator",
+    "Language": "HTML",
+    "Stars": 1,
+    "Forks": 0,
+    "OpenIssues": 0,
+    "Summary": ""
+  }
+]
